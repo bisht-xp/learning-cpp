@@ -51,6 +51,13 @@ void deleteNode(Node *&head, int pos) {
         return;
     }
     Node *temp = head;
+    if(pos == 1) {
+        Node *n = temp->next;
+        temp = n->next;
+        head = temp;
+        delete n;
+        return;
+    }
     for(int i=0; i<pos-2; i++) {
         temp = temp->next;
     }
@@ -77,6 +84,26 @@ void reverse(Node *&head) {
     head = prev;
 }
 
+Node* reverseKNode(Node* &head, int k) {
+    Node *prev = NULL;
+    Node *curr = head;
+    Node *temp;
+    int count = 0;
+    while(curr!=NULL && count < k) {
+        temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+        count++;
+    }
+    if(temp!= NULL) {
+      head->next =  reverseKNode(temp, k);
+    }
+    // cout << prev->data << endl;
+    // head = prev;
+    return prev;
+}
+
 Node* reverseRecussive(Node* &head) {
     if( head == NULL || head->next == NULL ) {
         return head;
@@ -88,6 +115,22 @@ Node* reverseRecussive(Node* &head) {
     return newNode;
 }
 
+// floyd Algorithm and Hear and tortois alogrithm implementation.
+bool detectCycle(Node* &head) {
+    Node *tortois = head;
+    Node *rabbit = head;
+
+    while(rabbit != NULL && rabbit->next != NULL) {
+        tortois = tortois->next;
+        rabbit = rabbit->next->next;
+        if(rabbit == tortois) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void display(Node *head) {
     Node *temp = head;
     while(temp != NULL) {
@@ -97,18 +140,36 @@ void display(Node *head) {
     cout << "NULL \n";
 }
 
+void makeCycle(Node* &head, int pos) {
+    Node* temp = head;
+    Node*startNode;
+    int count = 0;
+    while(temp->next != NULL) {
+        if(pos == count) {
+            startNode = temp;
+        }
+        temp = temp->next;
+        count++;
+    }
+    temp->next = startNode;
+}
+
 int main() {
     Node *head = NULL;
     // insertAtBegining(head, 8);
     insertAtEnd(head, 8);
     insertAtEnd(head, 10);
     insertAtEnd(head, 9);
+    insertAtEnd(head, 69);
+    insertAtEnd(head, 29);
     insertAtMiddle(head, 32, 1);
     insertAtBegining(head, 1);
-    display(head);
+    makeCycle(head, 3);
+    // display(head);
     // deleteNode(head, 1);
-    Node *newNode =  reverseRecussive(head);
-
-    display(newNode);
+    // Node *newNode = reverseKNode(head, 2);
+    // Node *newNode =  reverseRecussive(head);
+    cout << detectCycle(head) << endl;
+    // display(newNode);
     return 0;
 }
