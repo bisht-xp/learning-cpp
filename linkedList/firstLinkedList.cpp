@@ -131,6 +131,27 @@ bool detectCycle(Node* &head) {
     return false;
 }
 
+// how to solve when we detect the cycle in the linked list
+void removeCycle(Node* &head) {
+    Node *slow = head;
+    Node *fast = head;
+
+    do
+    {
+      slow = slow->next;
+      fast = fast->next->next;  
+    } while (fast!=slow);
+    
+    fast = head;
+
+    while(fast->next != slow->next) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    slow->next = NULL;
+}
+
 void display(Node *head) {
     Node *temp = head;
     while(temp != NULL) {
@@ -154,6 +175,7 @@ void makeCycle(Node* &head, int pos) {
     temp->next = startNode;
 }
 
+
 int main() {
     Node *head = NULL;
     // insertAtBegining(head, 8);
@@ -169,7 +191,9 @@ int main() {
     // deleteNode(head, 1);
     // Node *newNode = reverseKNode(head, 2);
     // Node *newNode =  reverseRecussive(head);
-    cout << detectCycle(head) << endl;
-    // display(newNode);
+    // cout << detectCycle(head) << endl;
+    removeCycle(head);
+
+    display(head);
     return 0;
 }
