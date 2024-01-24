@@ -151,6 +151,22 @@ void removeCycle(Node* &head) {
 
     slow->next = NULL;
 }
+ 
+void moveKNode(Node* &head, int k) {
+    Node *temp = head;
+    Node *newHead;
+    Node *newTail;
+    while(temp->next != NULL) {
+        if(temp->data == k) {
+	        newHead = temp->next;
+            newTail = temp;
+	    }
+	    temp = temp->next;
+    }
+    newTail->next = NULL;
+    temp->next = head;
+    head = newHead;
+}
 
 void display(Node *head) {
     Node *temp = head;
@@ -186,14 +202,14 @@ int main() {
     insertAtEnd(head, 29);
     insertAtMiddle(head, 32, 1);
     insertAtBegining(head, 1);
-    makeCycle(head, 3);
-    // display(head);
+    // makeCycle(head, 3);
+    display(head);
     // deleteNode(head, 1);
     // Node *newNode = reverseKNode(head, 2);
     // Node *newNode =  reverseRecussive(head);
     // cout << detectCycle(head) << endl;
-    removeCycle(head);
-
+    // removeCycle(head);
+    moveKNode(head, 10);
     display(head);
     return 0;
 }
