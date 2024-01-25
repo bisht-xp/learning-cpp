@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 class Node {
@@ -191,25 +192,97 @@ void makeCycle(Node* &head, int pos) {
     temp->next = startNode;
 }
 
+//let check the length of the two node
+int listLength(Node* &head) {
+    Node* temp = head;
+    int count = 0;
+    while(temp != NULL) {
+        temp = temp->next;
+        count++;
+    }
+    return count;
+}
+
+// lets make intersection point 
+void makeIntersection(Node* &head1, Node *&head2, int pos) {
+    Node *temp1 = head1;
+    Node *temp2 = head2;
+    int count = 1;
+    while(temp1->next != NULL && count < pos) {
+        temp1 = temp1->next;
+	count++;
+    }
+
+    while(temp2->next != NULL) {
+    	temp2 = temp2->next;
+    }
+    
+    temp2->next = temp1->next;
+}
+
+//Now check the insersection Node
+
+int insersectionPoint(Node* &head1, Node* &head2) {
+    int node1 = listLength(head1);
+    int node2 = listLength(head2);
+
+    Node *temp1 = head1;
+    Node *temp2 = head2;
+
+    if(node1 > node2) {
+        temp1 = head1;
+        temp2 = head2;
+    }else {
+        temp1=head2;
+        temp2=head1;
+    }
+    cout << " lenght: " << node1 << " " << node2 << endl;
+    int count = abs(node1-node2);
+    while(count--) {
+    	temp1 = temp1->next;
+    }
+    while(temp2 != temp1) {
+        cout << temp2->data << " " << temp1->data << endl;
+    	temp2 = temp2->next;
+        temp1 = temp1->next;
+    }
+    return temp2->data;
+}
+
 
 int main() {
     Node *head = NULL;
+    Node *head2 = NULL;
+    insertAtEnd(head2, 10);
+    insertAtEnd(head2, 11);
+    insertAtEnd(head2, 12);
+    insertAtEnd(head2, 13);
+    insertAtEnd(head2, 14);
     // insertAtBegining(head, 8);
+    insertAtEnd(head, 1);
+    insertAtEnd(head, 2);
+    insertAtEnd(head, 3);
+    insertAtEnd(head, 4);
+    insertAtEnd(head, 5);
+    insertAtEnd(head, 6);
+    insertAtEnd(head, 7);
     insertAtEnd(head, 8);
-    insertAtEnd(head, 10);
-    insertAtEnd(head, 9);
-    insertAtEnd(head, 69);
-    insertAtEnd(head, 29);
-    insertAtMiddle(head, 32, 1);
-    insertAtBegining(head, 1);
+    // insertAtMiddle(head, 32, 1);
+    // insertAtBegining(head, 1);
     // makeCycle(head, 3);
     display(head);
+    display(head2);
+    makeIntersection(head, head2, 3);
+    display(head2);
+    // cout << "interSection point: " << insersectionPoint(head, head2) << endl;
+    int data = insersectionPoint(head, head2);
+    cout << "value: " << data << endl;
     // deleteNode(head, 1);
     // Node *newNode = reverseKNode(head, 2);
     // Node *newNode =  reverseRecussive(head);
     // cout << detectCycle(head) << endl;
     // removeCycle(head);
-    moveKNode(head, 10);
-    display(head);
+    // moveKNode(head, 10);
+    // display(head);
     return 0;
 }
