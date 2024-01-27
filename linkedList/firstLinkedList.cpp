@@ -374,31 +374,49 @@ Node* mergeRecursive(Node* &head1, Node* &head2) {
     return result;
 }
 
+void evenAndOdd(Node* &head) {
+	Node* odd = head;
+	Node* even = head->next;
+	Node* evenStart = even;
+	while(odd->next != NULL && even->next != NULL) {
+		odd->next = even->next;
+		odd = odd->next;
+		even->next = odd->next;
+		even = even->next;
+	}
+	odd->next = evenStart;
+	if(odd->next != NULL) {
+		even->next = NULL;
+	}
+}
+
 int main()
 {
     Node *head = NULL;
     Node *head2 = NULL;
-    insertAtEnd(head2, 2);
-    insertAtEnd(head2, 4);
-    insertAtEnd(head2, 8);
-    insertAtEnd(head2, 10);
-    insertAtEnd(head2, 13);
+    //insertAtEnd(head2, );
+    //insertAtEnd(head2, 4);
+    //insertAtEnd(head2, 8);
+    //insertAtEnd(head2, 10);
+    //insertAtEnd(head2, 13);
     // insertAtBegining(head, 8);
     insertAtEnd(head, 1);
+    insertAtEnd(head, 2);
     insertAtEnd(head, 3);
+    insertAtEnd(head, 4);
     insertAtEnd(head, 5);
     insertAtEnd(head, 6);
-    insertAtEnd(head, 9);
-    insertAtEnd(head, 11);
-    insertAtEnd(head, 12);
-    insertAtEnd(head, 14);
+    insertAtEnd(head, 7);
+    insertAtEnd(head, 8);
     // insertAtMiddle(head, 32, 1);
     // insertAtBegining(head, 1);
     // makeCycle(head, 3);
     display(head);
-    display(head2);
-    Node *newNode = mergeRecursive(head, head2);
-    display(newNode);
+    evenAndOdd(head);
+    display(head);
+    //display(head2);
+    //Node *newNode = mergeRecursive(head, head2);
+    //display(newNode);
     // makeIntersection(head, head2, 3);
     // display(head2);
     //  cout << "interSection point: " << insersectionPoint(head, head2) << endl;
