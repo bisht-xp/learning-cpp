@@ -34,22 +34,20 @@ bool isAnagram(string s, string t) {
 	}
 	for(auto c: s) {
 		v[c-'a']++;
-		v[c-'a']--;
 	}
-	for(auto i: v) {
-		if(i != 0) {
+	for(auto c: t) {
+		if(!v[c-'a']) {
 			return false;
 		}
+		v[c-'a']--;		
 	}
 	return true;
-
-
 }
 
 int main()
 {
-	string s = "rat";
-	string t = "car";
+	string s = "";
+	string t = "rat";
 	cout << isAnagram(s, t) << endl;
 	return 0;
 }
