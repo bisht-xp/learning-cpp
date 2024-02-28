@@ -6,6 +6,7 @@ using namespace std;
 void merge(vector<int> &arr, int s, int mid, int e) {
     int i = s;
     int j = mid+1;
+
     vector<int> temp;
     while(i<=mid && j<=e) {
         if(arr[i] < arr[j]) {
@@ -22,9 +23,9 @@ void merge(vector<int> &arr, int s, int mid, int e) {
     while(j<=e) {
         temp.push_back(arr[j++]);
     }
-    arr.clear();
-    for(int &i: temp) {
-        arr.push_back(i);
+    int k = 0;
+    for(int i=s; i<=e; i++) {
+        arr[i] = temp[k++];
     }
     temp.clear();
     return;
