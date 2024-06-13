@@ -3,26 +3,26 @@
 
 using namespace std;
 
-void insertAtBottom(stack<int> &st, int n) {
-    if(st.empty()) {
-        st.push(n);
-        return;
-    }
-    int temp = st.top();
-    st.pop();
-    insertAtBottom(st, n);
-    st.push(temp);
-}
+// void insertAtBottom(stack<int> &st, int n) {
+//     if(st.empty()) {
+//         st.push(n);
+//         return;
+//     }
+//     int temp = st.top();
+//     st.pop();
+//     insertAtBottom(st, n);
+//     st.push(temp);
+// }
 
-void reverseStack(stack<int> &st) {
-    if(st.empty()) {
-        return;
-    }
-    int temp = st.top();
-    st.pop();
-    reverseStack(st);
-    insertAtBottom(st, temp);
- }
+// void reverseStack(stack<int> &st) {
+//     if(st.empty()) {
+//         return;
+//     }
+//     int temp = st.top();
+//     st.pop();
+//     reverseStack(st);
+//     insertAtBottom(st, temp);
+//  }
 
 
 int reverse(int n){
